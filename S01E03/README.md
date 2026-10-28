@@ -2,6 +2,11 @@
 
 Split the support desk's #4471 by evidence, including separate investigations where a cause is not established.
 
+The course's engineering update says #4471 closed on **5 October 2026**: the parser is **fixed**,
+while the form hint is **won't fix because booking-v3 was retired**. Our matching issues are
+closed as completed and not planned, respectively. The five unresolved investigations stay open.
+See the [captured update](evidence/engineering-update.txt) and [current signed incident page](support-kb/src/routes/kb/incidents/4471/+page.svx).
+
 | Issue | Assignment | Distinct reports |
 | --- | --- | ---: |
 | [#1](https://github.com/Korred/mega-dev-tasks/issues/1) | Shared month-first parser, exported desk count | 379 |
@@ -27,7 +32,9 @@ evidence supports a shared cause. Counts describe the 4 October export, not a li
 
 ## Deliverables
 
-- [Signed kb decision source](support-kb/src/routes/kb/decisions/0002-triage-by-cause/+page.svx).
+- [Current signed incident source](support-kb/src/routes/kb/incidents/4471/+page.svx).
+- [Current rendered incident screenshot](rendered/4471-outcome.png), [standalone HTML](rendered/4471-outcome.html) and [text](rendered/4471-outcome.txt).
+- [Signed kb decision source](support-kb/src/routes/kb/decisions/0002-triage-by-cause/+page.svx), preserved as the earlier export review.
 - [Rendered page screenshot](rendered/0002-triage-by-cause.png): the complete page, captured in Edge.
 - [Standalone rendered HTML](rendered/0002-triage-by-cause.html): download and open in a browser. This is a frozen snapshot with inline styles; explorer controls are disabled. Use the app below for interaction.
 - [Rendered text](rendered/0002-triage-by-cause.txt): accessible, searchable text extracted from that browser render.
@@ -55,7 +62,7 @@ npm run build
 npm run dev
 ```
 
-Open the local URL printed by Vite. The default page is the new decision; `/kb` opens the index.
+Open the local URL printed by Vite. The default page is the current incident; `/kb` opens the index.
 To view the production build after `npm run build`, run `npm exec vite preview -- --host 127.0.0.1` in the same directory.
 
 The runnable check verifies unique IDs, the exported classification, the primary partition and investigation overlap,

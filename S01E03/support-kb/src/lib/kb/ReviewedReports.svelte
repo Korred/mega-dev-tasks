@@ -13,7 +13,7 @@
   <thead><tr><th>reviewed group</th><th>reports</th><th>status</th></tr></thead>
   <tbody>
     {#each reviewed.groups as group (group.cause)}
-      <tr><td>{group.cause === 'parser' ? 'Shared parser (exported desk group)' : 'Booking-v3 form hint'}</td><td>{group.reports.length}</td><td>Separate fix needed; model assignment is not proof for every report</td></tr>
+      <tr><td>{group.cause === 'parser' ? 'Shared parser (exported desk group)' : 'Booking-v3 form hint'}</td><td>{group.reports.length}</td><td>Exported classification; cause is not proved for every report</td></tr>
     {/each}
     {#each reviewed.unresolved as report (report.id)}
       <tr><td>Investigate {report.id}</td><td>1</td><td>Included in parser count; cause unconfirmed</td></tr>

@@ -11,3 +11,7 @@ Reproduction to verify against the product: open a booking-v3 form for a day-fir
 Seen 17 April–22 September 2026 across three tenants. The count uses unique report IDs and tenant locale/form plus channel, not browser locale or intake tags: 15 of these reports were tagged `parser`, 18 `hint`. Align the hint, validation and actual interpretation, then verify ambiguous and unambiguous dates and supported locales. Keep a separate fix and verification from the parser issue.
 
 Full report IDs: [report-assignments.json](https://github.com/Korred/mega-dev-tasks/blob/main/S01E03/report-assignments.json), group `hint`. Reproduce counts with `npm run check` in `S01E03/support-kb`.
+
+## Closure evidence
+
+The [course engineering update](https://hq.mega.dev/challenges/what-it-shows), checked on 28 October, states that #4471 closed on 5 October and the hint outcome is **won't fix**: **booking-v3 form retired**. Close this ticket as **not planned**, not completed or fixed. Retirement is the stated disposition; it does not establish that historical bookings were corrected. The parser issue has a separate fixed outcome.

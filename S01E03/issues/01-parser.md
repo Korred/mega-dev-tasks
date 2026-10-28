@@ -13,3 +13,7 @@ Five reports remain included in this exported count even though their wording do
 Seen 1 April–4 October 2026 across 11 tenants. Verify the shared parser uses the tenant's intended date order, with regression checks on app/email and booking-v2 paths and confirmation that the booking-v3 form-hint fix remains separate. Do not close the unresolved investigations merely because this fix ships.
 
 Full report IDs: [report-assignments.json](https://github.com/Korred/mega-dev-tasks/blob/main/S01E03/report-assignments.json), group `parser`. Reproduce counts with `npm run check` in `S01E03/support-kb`.
+
+## Closure evidence
+
+The [course engineering update](https://hq.mega.dev/challenges/what-it-shows), checked on 28 October, states that #4471 closed on 5 October and the parser is **fixed**: `fix(dates): parse dd/mm for eu locales`. Close this matching ticket as **completed** on that evidence. This records the desk's outcome; the running product was not supplied for independent regression testing. The five investigation issues remain open because the update does not establish that their unexplained behavior shares this cause or was resolved.

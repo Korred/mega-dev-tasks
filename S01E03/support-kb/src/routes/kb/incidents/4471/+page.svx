@@ -1,9 +1,10 @@
 ---
 layout: runbook
 title: '#4471 · split date problems and unresolved reports'
-owner: support desk
-status: investigating
+owner: Korred
+status: closed
 reviewed: '2026-10-28'
+signature: 'v1.eyJzdWIiOiIxMjgzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzI1MDEsImV4cCI6MTc5MzI1ODkwMX0.2A-Dg9JMXVVA8ErwZV-oNCB16fUm0fuGGTFT_qemKs0'
 ---
 
 <script>
@@ -11,6 +12,8 @@ reviewed: '2026-10-28'
   import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import ReviewedReports from '#lib/kb/ReviewedReports.svelte';
+  import TicketOutcomes from '#lib/kb/TicketOutcomes.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 Since April, people have told us their bookings land on the wrong day: a month flipped. By
@@ -22,9 +25,26 @@ desk counts. See [decision 0002](/kb/decisions/0002-triage-by-cause)
 for evidence, uncertainty and the replacement triage rule.
 
 <Callout>
-One queued parser fix does not cover the form-hint problem or establish the cause of the
-unresolved reports. These counts describe the export, not a live queue or a shipped fix.
+The desk closed #4471 on 5 October with different outcomes for its two problems. “Closed” does
+not mean both were fixed. The five unresolved investigations remain open; the update does not
+establish their causes or resolution.
 </Callout>
+
+## Engineering outcome: 5 October
+
+<TicketOutcomes />
+
+The parser was **fixed** with `fix(dates): parse dd/mm for eu locales`. Our matching issue is
+closed as **completed** based on the course's engineering update, not an independently run
+product regression test.
+
+The hint issue was **won't fix** because **booking-v3 form retired**. Our matching issue is
+closed as **not planned**, rather than fixed. Retirement removes that form's future use; it
+does not repair previous bookings or prove that every report was resolved.
+
+The counts below remain the desk's 4 October export. Investigation issues are follow-ups to
+reports already included in the parser count. Keep them separate until evidence supports a
+common cause, and do not close them merely because the umbrella ticket or parser issue closed.
 
 ## Reviewed assignment
 
@@ -43,3 +63,12 @@ unresolved reports. These counts describe the export, not a live queue or a ship
 - Count distinct report IDs and compare the body's evidence against tenant and channel.
 - Merge only with evidence of the same cause; track unresolved reports for investigation.
 - Compare receipt dates with merge dates before inferring an incident onset.
+- Recheck current engineering outcomes and distinguish fixed from won't fix before closing tickets.
+
+## Earlier review and decision
+
+The [signed review and decision 0002](/kb/decisions/0002-triage-by-cause) records the analysis of
+the export and replaces subject-only deduplication. It remains a historical accepted decision;
+this incident page records the later engineering outcome without rewriting that decision.
+
+<RenderStamp {signature} />

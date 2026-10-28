@@ -1,0 +1,72 @@
+support desk · kb
+#4471 · split date problems and unresolved reports
+
+owner Korred
+closed
+reviewed 2026-10-28 · 0 days ago
+
+Since April, people have told us their bookings land on the wrong day: a month flipped. By 4 October the desk had 412 reports.
+
+Originally merged as one issue. The review separates a parser problem, a booking-v3 hint problem, and unresolved reports requiring separate investigation while retaining the exported desk counts. See decision 0002 for evidence, uncertainty and the replacement triage rule.
+
+The desk closed #4471 on 5 October with different outcomes for its two problems. “Closed” does not mean both were fixed. The five unresolved investigations remain open; the update does not establish their causes or resolution.
+Engineering outcome: 5 October
+
+Course engineering update · #4471 closed 2026-10-05 · checked 2026-10-28.
+
+problem	exported reports	outcome	engineering evidence	our ticket
+parser	379	fixed	fix(dates): parse dd/mm for eu locales	#1
+hint	33	won't fix	booking-v3 form retired	#2
+
+The parser was fixed with fix(dates): parse dd/mm for eu locales. Our matching issue is closed as completed based on the course’s engineering update, not an independently run product regression test.
+
+The hint issue was won’t fix because booking-v3 form retired. Our matching issue is closed as not planned, rather than fixed. Retirement removes that form’s future use; it does not repair previous bookings or prove that every report was resolved.
+
+The counts below remain the desk’s 4 October export. Investigation issues are follow-ups to reports already included in the parser count. Keep them separate until evidence supports a common cause, and do not close them merely because the umbrella ticket or parser issue closed.
+
+Reviewed assignment
+
+412 distinct reports · 15 repeated export rows removed.
+
+reviewed group	reports	status
+Shared parser (exported desk group)	379	Exported classification; cause is not proved for every report
+Booking-v3 form hint	33	Exported classification; cause is not proved for every report
+Investigate R-41202	1	Included in parser count; cause unconfirmed
+Investigate R-41209	1	Included in parser count; cause unconfirmed
+Investigate R-41236	1	Included in parser count; cause unconfirmed
+Investigate R-41344	1	Included in parser count; cause unconfirmed
+Investigate R-41620	1	Included in parser count; cause unconfirmed
+
+The two desk groups cover every distinct report once. Each investigation follows up a report already included in the exported parser count; do not add those counts to the total.
+
+Original model classification
+
+412 reports merged into #4471 · 2 causes
+
+cause	reports	tagged as	tenants	seen
+parser	379	parser ×356 · hint ×23	11	2026-04-01 → 2026-10-04	#4471
+hint	33	hint ×18 · parser ×15	3	2026-04-17 → 2026-09-22	not this ticket — no ticket of its own
+
+5 reports read as a one-day move; filed under parser by tenant.
+
+Since April
+03-30
+04-27
+05-25
+06-22
+07-20
+08-17
+09-14
+ received ·  merged into #4471 · per week
+Lessons
+Count distinct report IDs and compare the body’s evidence against tenant and channel.
+Merge only with evidence of the same cause; track unresolved reports for investigation.
+Compare receipt dates with merge dates before inferring an incident onset.
+Recheck current engineering outcomes and distinguish fixed from won’t fix before closing tickets.
+Earlier review and decision
+
+The signed review and decision 0002 records the analysis of the export and replaces subject-only deduplication. It remains a historical accepted decision; this incident page records the later engineering outcome without rewriting that decision.
+
+desk ref DR-03E5-9X18
+
+Pages are written by people. Tables and charts are built from data at render time.
