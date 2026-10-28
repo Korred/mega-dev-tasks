@@ -28,7 +28,8 @@ paths and need separate fixes. The form-hint problem affects Alder Physio, Coppe
 
 <ReviewedReports />
 
-Count distinct report IDs, not export rows: overlapping export pages repeat reports.
+Count distinct report IDs, not export rows: overlapping export pages repeat reports. Keep the
+desk's exported accounting for these tickets; investigation follow-ups do not silently reassign reports.
 Use the tenant directory's locale and form together with the channel, as `causeOf` does;
 browser locale and `meta.intakeTag` are intake guesses. The table exposes disagreements between
 those guesses and the tenant-based classification below. The issues in this repository record each
@@ -47,13 +48,14 @@ group's count and evidence; these counts describe this export, not a live queue.
 <CauseTable ticket={4471} />
 
 This original component assigns by tenant and channel without reading the body. Its parser
-total includes the unresolved reports. The reviewed table above holds them apart; both tables
-cover the same distinct reports. A computed label is a hypothesis when the words contradict it.
+total includes the unresolved reports, as does the ticket count above. Those reports have
+separate investigation issues without being counted as extra reports. A computed label is a
+hypothesis when the words contradict it; preserving exported accounting does not confirm a cause.
 
 ## Evidence that still needs investigation
 
 The original table's parser group includes the desk's one-day notes. Each has its own
-investigation issue and is excluded from the reviewed parser count. Their words do not prove
+investigation issue while remaining in the exported parser count. Their words do not prove
 a month/day swap or establish that all five share a cause:
 
 - **R-41202:** 12 May appears as 11 May, with a client arriving on the earlier day.
@@ -66,7 +68,7 @@ Check original booking input, stored date/time, timezone, invite payload and rec
 before calling these a timezone bug or another confirmed cause. Do not promise that either known
 fix resolves them. Keep these reports in separate investigation issues now. “Unknown” is not
 a shared cause. Merge investigations later only when evidence establishes the same problem,
-and recompute the affected counts without double counting. Waiting for a root cause before
+and update future accounting explicitly when evidence warrants reassignment. Waiting for a root cause before
 opening an issue would leave these reports hidden behind a queued parser fix.
 
 ## Received is different from merged

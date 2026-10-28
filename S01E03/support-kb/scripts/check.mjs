@@ -18,17 +18,23 @@ assert.deepEqual(groups.map(g => [g.cause, g.reports.length]), [['parser', 379],
 assert.equal(groups.reduce((n, g) => n + g.reports.length, 0), reports.length);
 assert.equal(readAs(groups[0], json('desk-notes.json').oneDayMove), 5);
 const reviewed = reviewReports(rows, tenantOf, json('desk-notes.json').oneDayMove);
-assert.deepEqual(reviewed.groups.map(g => [g.cause, g.reports.length]), [['parser', 374], ['hint', 33]]);
+assert.deepEqual(reviewed.groups.map(g => [g.cause, g.reports.length]), [['parser', 379], ['hint', 33]]);
 assert.equal(reviewed.unresolved.length, 5);
-const assignments = [...reviewed.groups.flatMap(g => g.reports), ...reviewed.unresolved];
+const assignments = reviewed.groups.flatMap(g => g.reports);
 assert.equal(assignments.length, reports.length);
 assert.equal(new Set(assignments.map(r => r.id)).size, reports.length);
 assert.deepEqual(reviewed.unresolved.map(r => r.id).sort(), [...json('desk-notes.json').oneDayMove].sort());
 const manifest = JSON.parse(fs.readFileSync(new URL('../../report-assignments.json', import.meta.url), 'utf8'));
-assert.equal(manifest.groups.length, 7);
-assert.deepEqual(manifest.groups.map(g => g.count), [374, 33, 1, 1, 1, 1, 1]);
+assert.equal(manifest.groups.length, 2);
+assert.deepEqual(manifest.groups.map(g => g.count), [379, 33]);
 assert.deepEqual(manifest.groups.flatMap(g => g.reportIds).sort(), reports.map(r => r.id).sort());
 for (const group of manifest.groups) assert.equal(group.count, group.reportIds.length);
+assert.equal(manifest.investigations.length, 5);
+assert.deepEqual(manifest.investigations.map(g => g.count), [1, 1, 1, 1, 1]);
+for (const followup of manifest.investigations) {
+  assert.equal(followup.includedIn, 'parser');
+  assert.ok(manifest.groups[0].reportIds.includes(followup.reportIds[0]));
+}
 assert.equal(groups[0].taggedAs.hint, 23);
 assert.equal(groups[1].taggedAs.parser, 15);
 assert.deepEqual(DEDUPE_CASES.map(c => sameCause(c.a, tenantOf(c.a), c.b, tenantOf(c.b))), [true, false, false, true, false]);

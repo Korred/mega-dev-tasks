@@ -16,17 +16,17 @@ The shared parser reads month first even when the tenant writes day first. Separ
 412 distinct reports · 15 repeated export rows removed.
 
 reviewed group	reports	status
-Shared parser	374	Separate fix needed
-Booking-v3 form hint	33	Separate fix needed
-Investigate R-41202	1	Keep separate; cause unconfirmed
-Investigate R-41209	1	Keep separate; cause unconfirmed
-Investigate R-41236	1	Keep separate; cause unconfirmed
-Investigate R-41344	1	Keep separate; cause unconfirmed
-Investigate R-41620	1	Keep separate; cause unconfirmed
+Shared parser (exported desk group)	379	Separate fix needed; model assignment is not proof for every report
+Booking-v3 form hint	33	Separate fix needed; model assignment is not proof for every report
+Investigate R-41202	1	Included in parser count; cause unconfirmed
+Investigate R-41209	1	Included in parser count; cause unconfirmed
+Investigate R-41236	1	Included in parser count; cause unconfirmed
+Investigate R-41344	1	Included in parser count; cause unconfirmed
+Investigate R-41620	1	Included in parser count; cause unconfirmed
 
-These assignments do not overlap. Each unresolved report has its own investigation issue and is excluded from the parser issue.
+The two desk groups cover every distinct report once. Each investigation follows up a report already included in the exported parser count; do not add those counts to the total.
 
-Count distinct report IDs, not export rows: overlapping export pages repeat reports. Use the tenant directory’s locale and form together with the channel, as causeOf does; browser locale and meta.intakeTag are intake guesses. The table exposes disagreements between those guesses and the tenant-based classification below. The issues in this repository record each group’s count and evidence; these counts describe this export, not a live queue.
+Count distinct report IDs, not export rows: overlapping export pages repeat reports. Keep the desk’s exported accounting for these tickets; investigation follow-ups do not silently reassign reports. Use the tenant directory’s locale and form together with the channel, as causeOf does; browser locale and meta.intakeTag are intake guesses. The table exposes disagreements between those guesses and the tenant-based classification below. The issues in this repository record each group’s count and evidence; these counts describe this export, not a live queue.
 
 Parser issue #1.
 Form-hint issue #2.
@@ -41,11 +41,11 @@ hint	33	hint ×18 · parser ×15	3	2026-04-17 → 2026-09-22	not this ticket —
 
 5 reports read as a one-day move; filed under parser by tenant.
 
-This original component assigns by tenant and channel without reading the body. Its parser total includes the unresolved reports. The reviewed table above holds them apart; both tables cover the same distinct reports. A computed label is a hypothesis when the words contradict it.
+This original component assigns by tenant and channel without reading the body. Its parser total includes the unresolved reports, as does the ticket count above. Those reports have separate investigation issues without being counted as extra reports. A computed label is a hypothesis when the words contradict it; preserving exported accounting does not confirm a cause.
 
 Evidence that still needs investigation
 
-The original table’s parser group includes the desk’s one-day notes. Each has its own investigation issue and is excluded from the reviewed parser count. Their words do not prove a month/day swap or establish that all five share a cause:
+The original table’s parser group includes the desk’s one-day notes. Each has its own investigation issue while remaining in the exported parser count. Their words do not prove a month/day swap or establish that all five share a cause:
 
 R-41202: 12 May appears as 11 May, with a client arriving on the earlier day.
 R-41209: every June booking is said to be one day off.
@@ -53,7 +53,7 @@ R-41236: the invite is said to arrive before the booking was made; no date pair 
 R-41344: the same meeting shows Tuesday in Lisbon and Monday in Toronto.
 R-41620: Tuesday 6 October appears as Monday, and the reporter says they have stopped reporting.
 
-Check original booking input, stored date/time, timezone, invite payload and recipient display before calling these a timezone bug or another confirmed cause. Do not promise that either known fix resolves them. Keep these reports in separate investigation issues now. “Unknown” is not a shared cause. Merge investigations later only when evidence establishes the same problem, and recompute the affected counts without double counting. Waiting for a root cause before opening an issue would leave these reports hidden behind a queued parser fix.
+Check original booking input, stored date/time, timezone, invite payload and recipient display before calling these a timezone bug or another confirmed cause. Do not promise that either known fix resolves them. Keep these reports in separate investigation issues now. “Unknown” is not a shared cause. Merge investigations later only when evidence establishes the same problem, and update future accounting explicitly when evidence warrants reassignment. Waiting for a root cause before opening an issue would leave these reports hidden behind a queued parser fix.
 
 Received is different from merged
 03-30

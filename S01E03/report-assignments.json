@@ -2,18 +2,21 @@
   "snapshot": "2026-10-04",
   "ticket": 4471,
   "total": 412,
+  "accounting": "Primary groups partition the reports as the desk view was exported. Investigation issues overlap the parser group and are not extra reports.",
   "groups": [
     {
       "group": "parser",
-      "count": 374,
+      "count": 379,
       "reportIds": [
         "R-41200",
         "R-41201",
+        "R-41202",
         "R-41203",
         "R-41204",
         "R-41205",
         "R-41206",
         "R-41208",
+        "R-41209",
         "R-41210",
         "R-41211",
         "R-41212",
@@ -38,6 +41,7 @@
         "R-41233",
         "R-41234",
         "R-41235",
+        "R-41236",
         "R-41237",
         "R-41238",
         "R-41239",
@@ -135,6 +139,7 @@
         "R-41341",
         "R-41342",
         "R-41343",
+        "R-41344",
         "R-41345",
         "R-41346",
         "R-41347",
@@ -380,7 +385,8 @@
         "R-41616",
         "R-41617",
         "R-41618",
-        "R-41619"
+        "R-41619",
+        "R-41620"
       ]
     },
     {
@@ -421,10 +427,13 @@
         "R-41582",
         "R-41584"
       ]
-    },
+    }
+  ],
+  "investigations": [
     {
       "group": "investigate-R-41202",
       "count": 1,
+      "includedIn": "parser",
       "reportIds": [
         "R-41202"
       ]
@@ -432,6 +441,7 @@
     {
       "group": "investigate-R-41209",
       "count": 1,
+      "includedIn": "parser",
       "reportIds": [
         "R-41209"
       ]
@@ -439,6 +449,7 @@
     {
       "group": "investigate-R-41236",
       "count": 1,
+      "includedIn": "parser",
       "reportIds": [
         "R-41236"
       ]
@@ -446,6 +457,7 @@
     {
       "group": "investigate-R-41344",
       "count": 1,
+      "includedIn": "parser",
       "reportIds": [
         "R-41344"
       ]
@@ -453,6 +465,7 @@
     {
       "group": "investigate-R-41620",
       "count": 1,
+      "includedIn": "parser",
       "reportIds": [
         "R-41620"
       ]
