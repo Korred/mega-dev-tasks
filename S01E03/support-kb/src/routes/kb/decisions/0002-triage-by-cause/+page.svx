@@ -1,0 +1,109 @@
+---
+layout: runbook
+title: '0002 · Split #4471 and triage by cause'
+owner: Korred
+status: accepted
+reviewed: '2026-10-28'
+signature: 'v1.eyJzdWIiOiIxMjgzIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzI1MDEsImV4cCI6MTc5MzI1ODkwMX0.2A-Dg9JMXVVA8ErwZV-oNCB16fUm0fuGGTFT_qemKs0'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import ReviewedReports from '#lib/kb/ReviewedReports.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+**Date:** 28 October 2026 · **Decider:** Korred · **Scope:** sched-prod reports in the 4 October export.
+
+**Supersedes [decision 0001](/kb/decisions/0001-dedupe-by-subject).** The old record stays intact as history.
+The [incident page](/kb/incidents/4471) says “one issue, one fix queued”; its computed views show that this conclusion is incomplete.
+
+## What the desk can establish
+
+The shared parser reads month first even when the tenant writes day first. Separately, booking-v3
+prints a month-first hint while its form reads the tenant's day-first order. Those are different
+paths and need separate fixes. The form-hint problem affects Alder Physio, Copper Studio and Pale Harbour.
+
+<ReviewedReports />
+
+Count distinct report IDs, not export rows: overlapping export pages repeat reports.
+Use the tenant directory's locale and form together with the channel, as `causeOf` does;
+browser locale and `meta.intakeTag` are intake guesses. The table exposes disagreements between
+those guesses and the tenant-based classification below. The issues in this repository record each
+group's count and evidence; these counts describe this export, not a live queue.
+
+- [Parser issue #1](https://github.com/Korred/mega-dev-tasks/issues/1).
+- [Form-hint issue #2](https://github.com/Korred/mega-dev-tasks/issues/2).
+- Separate investigations: [R-41202 · #3](https://github.com/Korred/mega-dev-tasks/issues/3),
+  [R-41209 · #4](https://github.com/Korred/mega-dev-tasks/issues/4),
+  [R-41236 · #5](https://github.com/Korred/mega-dev-tasks/issues/5),
+  [R-41344 · #6](https://github.com/Korred/mega-dev-tasks/issues/6),
+  [R-41620 · #7](https://github.com/Korred/mega-dev-tasks/issues/7).
+
+## What the original classifier shows
+
+<CauseTable ticket={4471} />
+
+This original component assigns by tenant and channel without reading the body. Its parser
+total includes the unresolved reports. The reviewed table above holds them apart; both tables
+cover the same distinct reports. A computed label is a hypothesis when the words contradict it.
+
+## Evidence that still needs investigation
+
+The original table's parser group includes the desk's one-day notes. Each has its own
+investigation issue and is excluded from the reviewed parser count. Their words do not prove
+a month/day swap or establish that all five share a cause:
+
+- **R-41202:** 12 May appears as 11 May, with a client arriving on the earlier day.
+- **R-41209:** every June booking is said to be one day off.
+- **R-41236:** the invite is said to arrive before the booking was made; no date pair is given.
+- **R-41344:** the same meeting shows Tuesday in Lisbon and Monday in Toronto.
+- **R-41620:** Tuesday 6 October appears as Monday, and the reporter says they have stopped reporting.
+
+Check original booking input, stored date/time, timezone, invite payload and recipient display
+before calling these a timezone bug or another confirmed cause. Do not promise that either known
+fix resolves them. Keep these reports in separate investigation issues now. “Unknown” is not
+a shared cause. Merge investigations later only when evidence establishes the same problem,
+and recompute the affected counts without double counting. Waiting for a root cause before
+opening an issue would leave these reports hidden behind a queued parser fix.
+
+## Received is different from merged
+
+<QueueTimeline ticket={4471} />
+
+Reports arrived from April onward. The desk did not merge any into this ticket until July;
+the large July merge bar includes earlier reports. That bar measures desk activity, not a sudden
+July onset. New reports continue into October. “Known” and “queued” do not establish that a fix
+shipped or that people stopped being affected. The final report also warns that silence can be
+under-reporting, rather than recovery.
+
+## Decision: merge only with evidence of the same cause
+
+Read the body, look up the tenant, and inspect the channel and booking form before merging.
+Matching subjects can describe different problems; different subjects can describe the same
+problem. Intake labels are supporting clues, never the deciding key.
+
+<DedupeExplorer />
+
+The explorer applies the supplied tenant-based model. Its cases show why a subject-only rule
+fails: the same subject can separate by channel or tenant, and different subjects can share a cause.
+A tenant missing from the directory has no established cause: keep the report separate and
+investigate. Two missing causes are not proof of a duplicate. Also keep reports separate when
+their bodies contradict the model or do not contain enough evidence, as the notes above illustrate.
+
+## What changes for the desk
+
+Keep separate parser and form-hint tickets plus one investigation ticket for each unresolved
+report, retaining report IDs, channel, tenant and
+observed input/output. Ask for reproduction details where missing. Verify each fix on the affected
+path before closing its ticket; closing one must not close the other.
+
+This replaces the instruction to merge when unsure. It costs more reading up front, but prevents
+one queued fix from hiding a different problem. Recheck this export against fresh reports before
+using its counts for current staffing or incident status. The shared page frame displays age and
+warns when the review date becomes stale; that warning is a prompt to check, not evidence that
+the underlying claims are current.
+
+<RenderStamp {signature} />

@@ -1,0 +1,40 @@
+---
+layout: runbook
+title: 'Triage: duplicate reports'
+owner: support desk
+status: accepted
+reviewed: '2026-10-28'
+---
+
+<script>
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+A busy morning brings hundreds of reports about the same thing. We keep one ticket per issue
+and merge every duplicate into it, so engineering sees one thread with a count.
+
+## The rule
+
+A report is a duplicate only when evidence supports the **same underlying cause**
+([decision 0002](/kb/decisions/0002-triage-by-cause), which supersedes decision 0001):
+
+1. Read the body and record expected versus observed behavior.
+2. Look up the tenant's locale, booking form and the report's channel.
+3. Compare the cause with the open ticket, checking whether the body's evidence fits the model.
+4. Merge only when the evidence supports the same cause; otherwise open or retain a separate ticket.
+
+<Callout>
+Subject lines and intake tags are clues. They do not establish that reports need the same fix.
+The explorer below models tenant and channel; it cannot settle contradictory report wording.
+</Callout>
+
+## Try it
+
+<DedupeExplorer />
+
+## When you are unsure
+
+Keep the report separate and investigate. A missing tenant or unexplained behavior is not proof
+of a duplicate. See [the #4471 review](/kb/decisions/0002-triage-by-cause) for the investigation
+reports held apart from the parser and form-hint tickets.

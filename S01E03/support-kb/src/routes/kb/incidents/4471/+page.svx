@@ -1,0 +1,44 @@
+---
+layout: runbook
+title: '#4471 · split date problems and unresolved reports'
+owner: support desk
+status: investigating
+reviewed: '2026-10-28'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import ReviewedReports from '#lib/kb/ReviewedReports.svelte';
+</script>
+
+Since April, people have told us their bookings land on the wrong day: a month flipped. By
+4 October the desk had **412 reports**.
+
+**Originally merged as one issue.** The review separates a parser problem, a booking-v3 hint
+problem, and unresolved reports requiring investigation. See [decision 0002](/kb/decisions/0002-triage-by-cause)
+for evidence, uncertainty and the replacement triage rule.
+
+<Callout>
+One queued parser fix does not cover the form-hint problem or establish the cause of the
+unresolved reports. These counts describe the export, not a live queue or a shipped fix.
+</Callout>
+
+## Reviewed assignment
+
+<ReviewedReports />
+
+## Original model classification
+
+<CauseTable ticket={4471} />
+
+## Since April
+
+<QueueTimeline ticket={4471} />
+
+## Lessons
+
+- Count distinct report IDs and compare the body's evidence against tenant and channel.
+- Merge only with evidence of the same cause; track unresolved reports for investigation.
+- Compare receipt dates with merge dates before inferring an incident onset.
